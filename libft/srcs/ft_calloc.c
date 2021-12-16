@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/05 10:54:29 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/05 11:06:55 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <stdlib.h>
 
-void	rra(int *stack, int atop, int size, int msg)
+void	*ft_calloc(size_t count, size_t size)
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
-}
+	void	*a;
+	size_t	i;
 
-void	rrb(int *stack, int atop, int msg)
-{
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
-
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	if (!(a = malloc(count * size)))
+		return (NULL);
+	i = 0;
+	while (i < count * size)
+	{
+		*(char *)(a + i) = 0;
+		i++;
+	}
+	return (a);
 }

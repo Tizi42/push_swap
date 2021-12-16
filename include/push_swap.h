@@ -5,6 +5,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+# include "libft.h"
+
 /* push.c */
 void	pb(int *atop, int size);
 void	pa(int *atop);
@@ -19,11 +21,11 @@ void	ss(int *stack, int atop);
 void	rotate(int *n, int size, int direction);
 void	ra(int *stack, int atop, int size, int msg);
 void	rb(int *stack, int atop, int msg);
-void	rr(int *stack, int atop, int size, int msg);
+void	rr(int *stack, int atop, int size);
 
 /*rrotate.c */
 void	rra(int *stack, int atop, int size, int msg);
 void	rrb(int *stack, int atop, int msg);
-void	rrr(int *stack, int atop, int size, int msg);
+void	rrr(int *stack, int atop, int size);
 
 #endif

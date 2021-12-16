@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/09 12:34:09 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/09 16:05:45 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	rra(int *stack, int atop, int size, int msg)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
-}
+	t_list *cur;
+	t_list *next;
 
-void	rrb(int *stack, int atop, int msg)
-{
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
-
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	next = *lst;
+	while (next)
+	{
+		cur = next;
+		next = cur->next;
+		(*del)(cur->content);
+		free(cur);
+	}
+	*lst = NULL;
 }

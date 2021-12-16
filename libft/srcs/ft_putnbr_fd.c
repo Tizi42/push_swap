@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/05 15:27:28 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/05 16:05:03 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <unistd.h>
 
-void	rra(int *stack, int atop, int size, int msg)
+static void	ft_putchar_fd(char c, int fd)
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
+	write(fd, &c, 1);
 }
 
-void	rrb(int *stack, int atop, int msg)
+void		ft_putnbr_fd(int n, int fd)
 {
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
+	int long nb;
 
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	nb = n;
+	if (nb < 0)
+	{
+		write(fd, "-", 1);
+		nb = -nb;
+	}
+	if (nb < 10)
+		ft_putchar_fd(nb + 48, fd);
+	else if (nb >= 10)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putchar_fd(nb % 10 + 48, fd);
+	}
 }

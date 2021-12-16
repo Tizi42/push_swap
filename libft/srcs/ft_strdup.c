@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/05 11:08:24 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/12 16:14:16 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <stdlib.h>
+#include "libft.h"
 
-void	rra(int *stack, int atop, int size, int msg)
+char	*ft_strdup(const char *s1)
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
-}
+	int		size;
+	char	*cp;
 
-void	rrb(int *stack, int atop, int msg)
-{
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
-
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	if (!(cp = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (NULL);
+	size = 0;
+	while (s1[size])
+	{
+		cp[size] = s1[size];
+		size++;
+	}
+	cp[size] = '\0';
+	return (cp);
 }

@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/05 10:10:20 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/06 10:29:05 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <stdio.h>
 
-void	rra(int *stack, int atop, int size, int msg)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
-}
+	unsigned const char	*rep;
+	size_t				i;
 
-void	rrb(int *stack, int atop, int msg)
-{
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
-
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	rep = s;
+	i = 0;
+	while (i < n)
+	{
+		if (rep[i] == (unsigned char)c)
+			return ((void *)&rep[i]);
+		i++;
+	}
+	return (NULL);
 }

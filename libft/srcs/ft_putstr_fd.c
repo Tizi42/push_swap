@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/05 15:19:04 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/10 17:19:05 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <unistd.h>
 
-void	rra(int *stack, int atop, int size, int msg)
+void	ft_putstr_fd(char *s, int fd)
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
-}
+	int len;
 
-void	rrb(int *stack, int atop, int msg)
-{
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
-
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	if (s == NULL)
+		return ;
+	len = 0;
+	while (s[len])
+		len++;
+	write(fd, s, len);
 }

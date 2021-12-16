@@ -116,11 +116,11 @@ int	valid_elements(char **tab)
 	int	i;
 	int	j;
 
-	if (tab[0] == "") //?
+	/*if (tab[0] == "") //?
 	{
 		printf("empty!");
 		return (0);
-	}
+	}*/
 	i = 0;
 	while (tab[i])
 	{
@@ -172,34 +172,33 @@ int	dupli_element(int *stack, int size)
 	return (0);
 }
 
-void	append_stack(int *stack, char **tab, int size)
+int	append_stack(int **stack, char **tab, int old_size)
 {
-	int	*tmp;
-	int i;
-	int	old_size;
+	int		*tmp;
+	int 	i;
+	int		new_size;
 
-	tmp = stack;
-	stack = malloc(sizeof(int) * size);
+	tmp = *stack;
+	new_size = old_size + sizeof_tab(tab);
+	*stack = malloc(sizeof(int) * new_size);
 	i = 0;
-	if (tmp)
+	while (i < old_size)
 	{
-		old_size = sizeof(tmp) / sizeof(tmp[0]);
-		while (i < old_size)
-		{
-			stack[i] = tmp[i];
-			i++;
-		}
-		free(tmp);
+		(*stack)[i] = tmp[i];
+		i++;
 	}
-	while (i < size && *tab)
+	if (tmp)
+		free(tmp); //v_free(tmp);
+	while (i < new_size && *tab)
 	{
-		stack[i] = ft_atoi(*tab);
+		(*stack)[i] = ft_atoi(*tab);
 		i++;
 		tab++;
 	}
+	return (new_size);
 }
 
-int	parse(int ac, char **av, int *stack)
+int	parse(int ac, char **av, int **stack)
 {
 	int		i;
 	char	**tab;
@@ -209,22 +208,21 @@ int	parse(int ac, char **av, int *stack)
 	size = 0;
 	while (i < ac)
 	{
-		tab = ft_split(av[i]);
+		tab = ft_split(av[i], ' ');
 		if(!valid_elements(tab))
 		{
 			free_split(tab);
-			if (stack)
-				free(stack);
+			if (*stack)
+				free(*stack);
 			exit(-1); //clean_exit();
 		}
-		size += sizeof_tab(tab);
-		append_stack(stack, tab, size);
+		size = append_stack(stack, tab, size);
 		free_split(tab);
 		i++;
 	}
-	if(dupli_element(stack, size))
+	if(dupli_element(*stack, size))
 	{
-		free(stack);
+		free(*stack);
 		exit(-1);
 	}
 	return (size);
@@ -232,9 +230,10 @@ int	parse(int ac, char **av, int *stack)
 
 void	modify_stack(int *stack, int size)
 {
-	int	*val_pos[2];
+	int	(*val_pos)[2];
 	int	i;
-	int	tmp;
+	int j;
+	int	tmp[2];
 
 	val_pos = malloc(sizeof(int) * 2 * size);
 	i = 0;
@@ -247,14 +246,17 @@ void	modify_stack(int *stack, int size)
 	i = 0;
 	while (i < size)
 	{
-		j = i;
+		j = i + 1;
 		while (j < size)
 		{
 			if (val_pos[i][0] > val_pos[j][0])
 			{
-				tmp = val_pos[i][0];
+				tmp[0] = val_pos[i][0];
+				tmp[1] = val_pos[i][1];
 				val_pos[i][0] = val_pos[j][0];
-				val_pos[j][0] = tmp;
+				val_pos[i][1] = val_pos[j][1];
+				val_pos[j][0] = tmp[0];
+				val_pos[j][1] = tmp[1];
 			}
 			j++;
 		}
@@ -276,7 +278,7 @@ int	main(int ac, char **av)
 	if (ac == 1)
 		return 0;
 	stack = NULL;
-	size = parse(ac, av, stack);
+	size = parse(ac, av, &stack);
 	modify_stack(stack, size);
 	push_swap(stack, size);
 }

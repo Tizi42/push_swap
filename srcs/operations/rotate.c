@@ -54,7 +54,7 @@ void	rb(int *stack, int atop, int msg)
 		printf("rb\n");
 }
 
-void	rr(int *stack, int atop, int size, int msg)
+void	rr(int *stack, int atop, int size)
 {
 	ra(stack, atop, size, 0);
 	rb(stack, atop, 0);

@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rrotate.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 10:33:25 by tyuan             #+#    #+#             */
-/*   Updated: 2021/12/14 10:33:27 by tyuan            ###   ########.fr       */
+/*   Created: 2020/05/04 17:03:53 by tyuan             #+#    #+#             */
+/*   Updated: 2020/05/12 15:19:27 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <stdio.h>
 
-void	rra(int *stack, int atop, int size, int msg)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	rotate(&stack[atop], size - atop, 1);
-	if (msg)
-		printf("rra\n");
-}
+	size_t		i;
+	char		*dstcp;
 
-void	rrb(int *stack, int atop, int msg)
-{
-	rotate(stack, atop, -1);
-	if (msg)
-		printf("rrb\n");
-}
-
-void	rrr(int *stack, int atop, int size)
-{
-	rra(stack, atop, size, 0);
-	rrb(stack, atop, 0);
-	printf("rrr\n");
+	if (dst == NULL && src == NULL)
+		return (dst);
+	i = len;
+	dstcp = dst;
+	if (src < dst)
+	{
+		while (len--)
+			*(char *)(dst + len) = *(char *)(src + len);
+	}
+	else
+	{
+		while (i--)
+			*(char *)(dstcp++) = *(char *)(src++);
+	}
+	return (dst);
 }

@@ -12,31 +12,6 @@
 
 #include "push_swap.h"
 
-/*void	syntax_check(char **arg, int n)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while(i < n)
-	{
-		j = 0;
-		while (arg[i][j])
-		{
-			if (!ft_isdigit(arg[i][j]) && arg[i][j] != ' ')
-				error_exit("Error\n");
-			j++;
-		}
-		i++；
-	}
-}
-
-int	*parse(char **arg, int n)
-{
-	syntax_check(arg, n);
-
-}*/
-
 int	sorted(int *stack, int size)
 {
 	int	i;
@@ -80,7 +55,7 @@ void top_sml_a(int *stack, int atop, int size)
 			rra(stack, atop, size, 1);
 }
 
-void push_swap(int *stack, int size)
+void	push_swap_small(int *stack, int size)
 {
 	int atop;
 
@@ -101,173 +76,89 @@ void push_swap(int *stack, int size)
 		pa(&atop);
 }
 
-int	sizeof_tab(char **tab)
+int	find_insert_pos(int *stack, int atop, int n)
 {
-	int n;
+	int pos;
 
-	n = 0;
-	while (tab && tab[n])
-		n++;
-	return (n);
+	pos = atop - 1;
+	while (pos >= 0)
+	{
+		if (n > stack[pos])
+			return (pos);
+		pos--;
+	}
+	return (pos);
 }
 
-int	valid_elements(char **tab)
+void	rb_n(int *stack, int atop, int msg, int n)
 {
-	int	i;
-	int	j;
+	while (n > 0)
+	{
+		rb(stack, atop, msg);
+		n--;
+	}
+}
 
-	/*if (tab[0] == "") //?
+void	rrb_n(int *stack, int atop, int msg, int n)
+{
+	while (n > 0)
 	{
-		printf("empty!");
-		return (0);
-	}*/
-	i = 0;
-	while (tab[i])
+		rrb(stack, atop, msg);
+		n--;
+	}
+}
+
+void	push_swap_medium(int *stack, int size)
+{
+	int	pivot;
+	int	atop;
+	int pos;
+	//int i;
+
+	atop = 0;
+	pivot = size / 2;
+	while (pivot < size - 25)
 	{
-		j = 0;
-		while (tab[i][j])
+		while (atop <= pivot && !sorted(&stack[atop], size - atop))
 		{
-			if (!ft_isdigit(tab[i][j]))
+			if (stack[atop] <= pivot)
 			{
-				if (j != 0 || (j == 0 && tab[i][j] != '-'))
-					return (0);
+				pos = find_insert_pos(stack, atop, stack[atop]);
+				if (pos >= atop / 2)
+				{
+					rb_n(stack, atop, 1, atop - pos - 1);
+					pb(&atop, size);
+					rrb_n(stack, atop, 1, atop - pos - 2);
+				}
+				else if (pos < atop / 2)
+				{
+					rrb_n(stack, atop, 1, pos + 1);
+					pb(&atop, size);
+					rb_n(stack, atop, 1, pos + 2);
+				}
 			}
-			j++;
+			else
+				ra(stack, atop, size, 1);
 		}
-		i++;
+		if (atop > pivot)
+			pivot = pivot + (size - pivot) / 2;
+		else
+			pivot = size;
 	}
-	return (1);
+	modify_stack(&stack[atop], size - atop);
+	push_swap_small(&stack[atop], size - atop);
+	while (atop > 0)
+		pa(&atop);
+	//if (!sorted(stack, size))
+	//	printf("(error: not sorted)\n");
 }
 
-void free_split(char **tab)
+void	push_swap(int *stack, int size)
 {
-	int i;
-
-	if (tab)
-	{
-		i = 0;
-		while (tab[i])
-		{
-			free(tab[i]);
-			i++;
-		}
-		free(tab);
-	}
-}
-
-int	dupli_element(int *stack, int size)
-{
-	int i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = i;
-		while (j-- > 0)
-			if (stack[i] == stack[j])
-				return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	append_stack(int **stack, char **tab, int old_size)
-{
-	int		*tmp;
-	int 	i;
-	int		new_size;
-
-	tmp = *stack;
-	new_size = old_size + sizeof_tab(tab);
-	*stack = malloc(sizeof(int) * new_size);
-	i = 0;
-	while (i < old_size)
-	{
-		(*stack)[i] = tmp[i];
-		i++;
-	}
-	if (tmp)
-		free(tmp); //v_free(tmp);
-	while (i < new_size && *tab)
-	{
-		(*stack)[i] = ft_atoi(*tab);
-		i++;
-		tab++;
-	}
-	return (new_size);
-}
-
-int	parse(int ac, char **av, int **stack)
-{
-	int		i;
-	char	**tab;
-	int		size;
-
-	i = 1;
-	size = 0;
-	while (i < ac)
-	{
-		tab = ft_split(av[i], ' ');
-		if(!valid_elements(tab))
-		{
-			free_split(tab);
-			if (*stack)
-				free(*stack);
-			exit(-1); //clean_exit();
-		}
-		size = append_stack(stack, tab, size);
-		free_split(tab);
-		i++;
-	}
-	if(dupli_element(*stack, size))
-	{
-		free(*stack);
-		exit(-1);
-	}
-	return (size);
-}
-
-void	modify_stack(int *stack, int size)
-{
-	int	(*val_pos)[2];
-	int	i;
-	int j;
-	int	tmp[2];
-
-	val_pos = malloc(sizeof(int) * 2 * size);
-	i = 0;
-	while (i < size)
-	{
-		val_pos[i][0] = stack[i];
-		val_pos[i][1] = i;
-		i++;
-	}
-	i = 0;
-	while (i < size)
-	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (val_pos[i][0] > val_pos[j][0])
-			{
-				tmp[0] = val_pos[i][0];
-				tmp[1] = val_pos[i][1];
-				val_pos[i][0] = val_pos[j][0];
-				val_pos[i][1] = val_pos[j][1];
-				val_pos[j][0] = tmp[0];
-				val_pos[j][1] = tmp[1];
-			}
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < size)
-	{
-		stack[val_pos[i][1]] = i;
-		i++;
-	}
+	if (size < 50)
+		push_swap_small(stack, size);
+	else if (size >= 50)
+		push_swap_medium(stack, size);
 }
 
 int	main(int ac, char **av)

@@ -28,4 +28,20 @@ void	rra(int *stack, int atop, int size, int msg);
 void	rrb(int *stack, int atop, int msg);
 void	rrr(int *stack, int atop, int size);
 
+void	modify_stack(int *stack, int size);
+int		parse(int ac, char **av, int **stack);
+int		append_stack(int **stack, char **tab, int old_size);
+
+int		dupli_element(int *stack, int size);
+int		valid_elements(char **tab);
+
+void	free_split(char **tab);
+int		sizeof_tab(char **tab);
+
+void	push_swap(int *stack, int size);
+void	push_swap_small(int *stack, int size);
+void	top_sml_a(int *stack, int atop, int size);
+int		ordered(int *stack, int size);
+int		sorted(int *stack, int size);
+
 #endif

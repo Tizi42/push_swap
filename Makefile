@@ -12,7 +12,7 @@
 
 NAME	= push_swap
 
-CFILES	= main.c  operations/*.c
+CFILES	= main.c  parse.c syntax.c lib.c operations/*.c
 
 SRCS	= $(addprefix srcs/, ${CFILES})
 

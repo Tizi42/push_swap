@@ -76,7 +76,59 @@ void	push_swap_small(int *stack, int size)
 		pa(&atop);
 }
 
+int	pos_of_smallest(int *stack, int size)
+{
+	int	pos;
+
+	pos = --size;
+	while (size > 0)
+	{
+		size--;
+		if (stack[size] < stack[pos])
+			pos = size;
+	}
+	return (pos);
+}
+
+int	pos_of_biggest(int *stack, int size)
+{
+	int	pos;
+
+	pos = --size;
+	while (size > 0)
+	{
+		size--;
+		if (stack[size] > stack[pos])
+			pos = size;
+	}
+	return (pos);
+}
+
 int	find_insert_pos(int *stack, int atop, int n)
+{
+	int	pbig;
+	int	psml;
+
+	pbig = pos_of_biggest(stack, atop);
+	psml = pos_of_smallest(stack, atop);
+	while (pbig != psml)
+	{
+		if (n > stack[pbig])
+			return (pbig);
+		if (--pbig < 0)
+			pbig = atop - 1;
+	}
+	if (pbig >= 0 && pbig == psml)
+	{
+		if (n > stack[psml])
+			return (psml);
+		else
+			return (psml - 1);
+	}
+	return (-1);
+}
+
+/*int	find_insert_pos(int *stack, int atop, int n)
 {
 	int pos;
 
@@ -88,7 +140,7 @@ int	find_insert_pos(int *stack, int atop, int n)
 		pos--;
 	}
 	return (pos);
-}
+}*/
 
 void	rb_n(int *stack, int atop, int msg, int n)
 {
@@ -108,11 +160,21 @@ void	rrb_n(int *stack, int atop, int msg, int n)
 	}
 }
 
+void	top_pos_b(int *stack, int atop, int pos)
+{
+	if (atop < 2 || pos >= atop)
+		return ;
+	if (pos >= atop / 2)
+		rb_n(stack, atop, 1, atop - pos - 1);
+	else if (pos < atop / 2)
+		rrb_n(stack, atop, 1, pos + 1);
+}
+
 void	push_swap_medium(int *stack, int size)
 {
 	int	pivot;
 	int	atop;
-	int pos;
+	//int pos;
 	//int i;
 
 	atop = 0;
@@ -123,19 +185,22 @@ void	push_swap_medium(int *stack, int size)
 		{
 			if (stack[atop] <= pivot)
 			{
-				pos = find_insert_pos(stack, atop, stack[atop]);
+				//pos = find_insert_pos(stack, atop, stack[atop]);
+				top_pos_b(stack, atop, find_insert_pos(stack, atop, stack[atop]));
+				pb(&atop, size);
+				/*
 				if (pos >= atop / 2)
 				{
 					rb_n(stack, atop, 1, atop - pos - 1);
 					pb(&atop, size);
-					rrb_n(stack, atop, 1, atop - pos - 2);
+					//rrb_n(stack, atop, 1, atop - pos - 2);
 				}
 				else if (pos < atop / 2)
 				{
 					rrb_n(stack, atop, 1, pos + 1);
 					pb(&atop, size);
-					rb_n(stack, atop, 1, pos + 2);
-				}
+					//rb_n(stack, atop, 1, pos + 2);
+				}*/
 			}
 			else
 				ra(stack, atop, size, 1);
@@ -145,6 +210,7 @@ void	push_swap_medium(int *stack, int size)
 		else
 			pivot = size;
 	}
+	top_pos_b(stack, atop, pos_of_biggest(stack, atop));
 	modify_stack(&stack[atop], size - atop);
 	push_swap_small(&stack[atop], size - atop);
 	while (atop > 0)

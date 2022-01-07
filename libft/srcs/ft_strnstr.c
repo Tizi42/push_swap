@@ -14,7 +14,7 @@
 
 static int	ft_strlen(const char *str)
 {
-	int l;
+	int	l;
 
 	l = 0;
 	while (str[l])
@@ -22,10 +22,10 @@ static int	ft_strlen(const char *str)
 	return (l);
 }
 
-char		*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	if (*needle == '\0')

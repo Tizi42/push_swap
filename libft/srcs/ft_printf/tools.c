@@ -18,9 +18,9 @@ void	putchr_multi(char c, int times)
 		write(1, &c, 1);
 }
 
-int		printf_strlen(char *str)
+int	printf_strlen(char *str)
 {
-	int l;
+	int	l;
 
 	l = 0;
 	if (!(str))
@@ -30,10 +30,10 @@ int		printf_strlen(char *str)
 	return (l);
 }
 
-int		expo_2(unsigned int n)
+int	expo_2(unsigned int n)
 {
-	unsigned int i;
-	unsigned int j;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 1;
 	j = 0;
@@ -44,7 +44,7 @@ int		expo_2(unsigned int n)
 
 char	deci_hexa(int n)
 {
-	char *hexa;
+	char	*hexa;
 
 	hexa = "0123456789abcdef";
 	if (n < 0 || n > 15)
@@ -53,11 +53,11 @@ char	deci_hexa(int n)
 		return (hexa[n]);
 }
 
-int		ptradrr(void *ptr, char *hexa, t_printf *format)
+int	ptradrr(void *ptr, char *hexa, t_printf *format)
 {
-	int x[2];
-	int i;
-	int nb;
+	int	x[2];
+	int	i;
+	int	nb;
 
 	if (!ptr && format->precision < 0)
 	{

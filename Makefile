@@ -12,29 +12,41 @@
 
 NAME	= push_swap
 
-CFILES	= main.c  parse.c syntax.c lib.c operations/*.c
+SRCS	= main.c  parse.c syntax.c push_swap.c calculate.c methods.c order_check.c operations/multi_ops.c operations/push.c operations/rotate.c operations/rrotate.c operations/swap.c
 
-SRCS	= $(addprefix srcs/, ${CFILES})
+DIRSRC	= srcs
 
-OBJS	= ${SRCS:.c=.o}
+OBJS	= ${addprefix ${DIROBJ}/, ${SRCS:.c=.o}}
+
+DIROBJ	= objs
+
+LIBS	= -Llibft -lft
 
 CC		= gcc
 
-CFLAGS	= -Wall -Wextra -Werror -I include/ -I libft/includes/
+CFLAGS	= -Wall -Wextra -Werror
+
+INCLUDE	= -I include/ -I libft/includes/
 
 HEADER	= push_swap.h
 
-RM	= rm -f
+RM	= rm -rf
 
 all:	${NAME}
 
-${NAME}:
+${NAME}: ${OBJS}
 	make -s -C libft
-	${CC} ${CFLAGS} ${SRCS}  -Llibft -lft -o $@
+	${CC} ${CFLAGS} ${INCLUDE} $^ ${LIBS} -o $@
+
+${DIROBJ}:
+	mkdir -p $@/operations
+
+${DIROBJ}/%.o: ${DIRSRC}/%.c | ${DIROBJ}
+	${CC} ${CFLAGS} ${INCLUDE} -c $< -o $@
 
 clean:
 	make clean -s -C libft
-	${RM} ${OBJS} ${OBJS_B}
+	${RM} ${DIROBJ}
 
 fclean: clean
 	make fclean -s -C libft

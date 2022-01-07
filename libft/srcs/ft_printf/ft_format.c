@@ -25,7 +25,7 @@ int	flags(char s, t_printf *format)
 
 int	width(char s, t_printf *format, va_list ap)
 {
-	int n;
+	int	n;
 
 	n = 0;
 	if (s == '*')
@@ -50,7 +50,7 @@ int	width(char s, t_printf *format, va_list ap)
 
 int	precision(char s, t_printf *format, va_list ap)
 {
-	unsigned int n;
+	unsigned int	n;
 
 	n = 0;
 	if (s == '*')
@@ -68,7 +68,7 @@ int	precision(char s, t_printf *format, va_list ap)
 
 int	type(char s, t_printf *format, va_list ap)
 {
-	int p;
+	int	p;
 
 	if (s == 'd' || s == 'i')
 		p = print_di(va_arg(ap, int), format);

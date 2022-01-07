@@ -17,8 +17,7 @@ char	*f_strdup(const char *s1)
 	int		size;
 	char	*cp;
 
-	if (!(cp = malloc(sizeof(char) * (f_strlen(s1) + 1))))
-		return (NULL);
+	cp = ft_malloc(sizeof(char) * (f_strlen(s1) + 1));
 	size = 0;
 	while (s1 && s1[size])
 	{
@@ -44,8 +43,7 @@ t_fdnl	*f_lstnew(int fd)
 {
 	t_fdnl	*new;
 
-	if (!(new = malloc(sizeof(*new))))
-		return (NULL);
+	new = ft_malloc(sizeof(*new));
 	new->ifd = fd;
 	new->iline = NULL;
 	new->next = NULL;

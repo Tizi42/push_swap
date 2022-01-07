@@ -12,16 +12,17 @@
 
 #include "libft.h"
 
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list *newl;
-	t_list *elem;
+	t_list	*newl;
+	t_list	*elem;
 
 	if (lst == NULL || f == NULL)
 		return (NULL);
 	if (lst)
 	{
-		if (!(newl = ft_lstnew((*f)(lst->content))))
+		newl = ft_lstnew((*f)(lst->content));
+		if (!newl)
 		{
 			(*del)(lst->content);
 			return (NULL);

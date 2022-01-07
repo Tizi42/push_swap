@@ -23,31 +23,64 @@ int	parse(int ac, char **av, int **stack)
 	while (i < ac)
 	{
 		tab = ft_split(av[i], ' ');
-		if(!valid_elements(tab))
+		if (!valid_elements(tab))
 		{
 			free_split(tab);
-			if (*stack)
-				free(*stack);
-			exit(-1); //clean_exit();
+			clean_exit(*stack);
 		}
 		size = append_stack(stack, tab, size);
 		free_split(tab);
 		i++;
 	}
-	if(dupli_element(*stack, size))
-	{
-		free(*stack);
-		exit(-1);
-	}
+	if (dupli_element(*stack, size))
+		clean_exit(*stack);
 	return (size);
 }
 
+void	exchange_sort(int (*lst)[2], int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (lst[i][0] > lst[j][0])
+			{
+				ft_swap(&lst[i][0], &lst[j][0]);
+				ft_swap(&lst[i][1], &lst[j][1]);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+/*
+** This fonction changes the value of each element in the stack,
+** so that the new value will be its final position(index) after sorting.
+** For example:
+** stack = {258, 20, 67} will become stack = {2, 0, 1}
+**
+** val_pos is a list of int[2]
+** val_pos[i][0] = the original value stack[i]
+** val_pos[i][1] = the original position(index) i
+**
+** Steps:
+** 1) Set val_pos with the original value and positon of each element.
+** 2) Sort val_pos according to elemets' original value.
+** 3) Set stack elements's new value to its final position index:
+**               stack[val_pos[i][1]] = i;
+** i = the final index
+** val_pos[i][1] = the original index
+*/
 void	modify_stack(int *stack, int size)
 {
 	int	(*val_pos)[2];
 	int	i;
-	int j;
-	int	tmp[2];
 
 	val_pos = malloc(sizeof(int) * 2 * size);
 	i = 0;
@@ -57,42 +90,25 @@ void	modify_stack(int *stack, int size)
 		val_pos[i][1] = i;
 		i++;
 	}
-	i = 0;
-	while (i < size)
-	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (val_pos[i][0] > val_pos[j][0])
-			{
-				tmp[0] = val_pos[i][0];
-				tmp[1] = val_pos[i][1];
-				val_pos[i][0] = val_pos[j][0];
-				val_pos[i][1] = val_pos[j][1];
-				val_pos[j][0] = tmp[0];
-				val_pos[j][1] = tmp[1];
-			}
-			j++;
-		}
-		i++;
-	}
+	exchange_sort(val_pos, size);
 	i = 0;
 	while (i < size)
 	{
 		stack[val_pos[i][1]] = i;
 		i++;
 	}
+	free(val_pos);
 }
 
 int	append_stack(int **stack, char **tab, int old_size)
 {
 	int		*tmp;
-	int 	i;
+	int		i;
 	int		new_size;
 
 	tmp = *stack;
 	new_size = old_size + sizeof_tab(tab);
-	*stack = malloc(sizeof(int) * new_size);
+	*stack = ft_malloc(sizeof(int) * new_size);
 	i = 0;
 	while (i < old_size)
 	{
@@ -100,7 +116,7 @@ int	append_stack(int **stack, char **tab, int old_size)
 		i++;
 	}
 	if (tmp)
-		free(tmp); //v_free(tmp);
+		free(tmp);
 	while (i < new_size && *tab)
 	{
 		(*stack)[i] = ft_atoi(*tab);

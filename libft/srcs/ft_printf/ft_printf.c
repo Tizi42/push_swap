@@ -14,10 +14,9 @@
 
 t_printf	*printf_lstnew(void)
 {
-	t_printf *new;
+	t_printf	*new;
 
-	if (!(new = malloc(sizeof(*new))))
-		return (NULL);
+	new = ft_malloc(sizeof(*new));
 	new->width = -1;
 	new->precision = -1;
 	new->flag_zero = 0;
@@ -25,10 +24,10 @@ t_printf	*printf_lstnew(void)
 	return (new);
 }
 
-int		print_arg(char *str, int i, va_list ap, int *p)
+int	print_arg(char *str, int i, va_list ap, int *p)
 {
 	t_printf	*format;
-	int		j;
+	int			j;
 
 	format = printf_lstnew();
 	while (flags(str[i], format))
@@ -51,7 +50,7 @@ int		print_arg(char *str, int i, va_list ap, int *p)
 	return (i);
 }
 
-int		checkzero(long int n, t_printf *format)
+int	checkzero(long int n, t_printf *format)
 {
 	if (n == 0 && format->precision == 0)
 	{
@@ -61,11 +60,11 @@ int		checkzero(long int n, t_printf *format)
 	return (0);
 }
 
-int		checkptr(char *hexa)
+int	checkptr(char *hexa)
 {
-	int i;
-	int j;
-	int len;
+	int	i;
+	int	j;
+	int	len;
 
 	i = 1;
 	j = 0;
@@ -85,7 +84,7 @@ int		checkptr(char *hexa)
 	return (len);
 }
 
-int		ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
 	int		i;

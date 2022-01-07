@@ -25,13 +25,13 @@ char	checkflagzero(t_printf *format)
 	return (' ');
 }
 
-int		pointer(int len, char *hexa, t_printf *format)
+int	pointer(int len, char *hexa, t_printf *format)
 {
 	int	lenth;
 
 	lenth = len;
 	if (format->precision > 0 && !(len == 1 && hexa[0] == '0'))
-		lenth = format->precision > len ? format->precision : len;
+		lenth = ternary(format->precision > len, format->precision, len);
 	if (format->flag_minus)
 	{
 		write(1, "0x", 2);
@@ -45,5 +45,5 @@ int		pointer(int len, char *hexa, t_printf *format)
 		putchr_multi('0', lenth - len);
 		write(1, hexa, len);
 	}
-	return (format->width > (lenth + 2) ? format->width : (lenth + 2));
+	return (ternary(format->width > lenth + 2, format->width, lenth + 2));
 }

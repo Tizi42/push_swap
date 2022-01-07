@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-int		print_di(int n, t_printf *format)
+int	print_di(int n, t_printf *format)
 {
 	int			nega;
 	int			clen;
@@ -20,15 +20,16 @@ int		print_di(int n, t_printf *format)
 	long int	nb;
 
 	if (checkzero(n, format))
-		return (format->width > 0 ? format->width : 0);
+		return (ternary(format->width > 0, format->width, 0));
 	nb = n;
-	nega = nb < 0 ? 1 : 0;
-	nb = nega == 1 ? -nb : nb;
+	nega = ternary(nb < 0, 1, 0);
+	nb = ternary(nega == 1, -nb, nb);
 	nlen = len(nb);
-	if (format->precision > (clen = nlen) && format->precision >= 0)
+	clen = nlen;
+	if (format->precision > clen && format->precision >= 0)
 		clen = format->precision;
 	di(nega, (clen += nega), nb, format);
-	return (format->width > clen ? format->width : clen);
+	return (ternary(format->width > clen, format->width, clen));
 }
 
 void	di(int nega, int lenth, long int n, t_printf *format)
@@ -60,29 +61,29 @@ void	di(int nega, int lenth, long int n, t_printf *format)
 	}
 }
 
-int		print_u(unsigned int n, t_printf *format)
+int	print_u(unsigned int n, t_printf *format)
 {
 	int		lenth;
 	int		nlen;
 
 	if (checkzero(n, format))
-		return (format->width > 0 ? format->width : 0);
+		return (ternary(format->width > 0, format->width, 0));
 	nlen = len(n);
 	lenth = nlen;
 	if (format->precision >= 0 && format->precision > nlen)
 		lenth = format->precision;
 	di(0, lenth, n, format);
-	return (format->width > lenth ? format->width : lenth);
+	return (ternary(format->width > lenth, format->width, lenth));
 }
 
-int		print_x(unsigned int n, t_printf *format, char s)
+int	print_x(unsigned int n, t_printf *format, char s)
 {
 	int		lenth;
 	int		nlen;
 	char	*hexa;
 
 	if (checkzero(n, format))
-		return (format->width > 0 ? format->width : 0);
+		return (ternary(format->width > 0, format->width, 0));
 	nlen = len_x(n);
 	lenth = nlen;
 	hexa = tohexa(n, nlen, s);
@@ -90,12 +91,12 @@ int		print_x(unsigned int n, t_printf *format, char s)
 		lenth = format->precision;
 	xx(hexa, nlen, lenth, format);
 	free(hexa);
-	return (format->width > lenth ? format->width : lenth);
+	return (ternary(format->width > lenth, format->width, lenth));
 }
 
 void	xx(char *hexa, int nlen, int lenth, t_printf *format)
 {
-	char c;
+	char	c;
 
 	if (format->flag_minus)
 	{

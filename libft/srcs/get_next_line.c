@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	checknewl(char *buf, int ret, char **line, t_fdnl *istruct)
+void	checknewl(char *buf, int ret, char **line, t_fdnl *istruct)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < ret)
@@ -28,32 +28,15 @@ int	checknewl(char *buf, int ret, char **line, t_fdnl *istruct)
 			return (append(line, buf, 0, i));
 		}
 	}
-	i = append(line, buf, 0, ret);
-	if (i < 0)
-		return (-1);
-	else
-		return (42);
+	append(line, buf, 0, ret);
 }
 
-int	f_strlen(const char *s)
-{
-	int	len;
-
-	if (!s)
-		return (0);
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-int	append(char **line, char *buf, int start, int end)
+void	append(char **line, char *buf, int start, int end)
 {
 	char	*tmp;
 	int		i;
 
-	if (!(tmp = malloc(sizeof(char) * (f_strlen(*line) + (end - start) + 1))))
-		return (-1);
+	tmp = ft_malloc(sizeof(char) * (ft_strlen(*line) + (end - start) + 1));
 	i = 0;
 	if (*line && **line)
 	{
@@ -69,7 +52,6 @@ int	append(char **line, char *buf, int start, int end)
 	if (*line)
 		free(*line);
 	*line = tmp;
-	return (1);
 }
 
 int	ft_return(int ret, t_fdnl **istruct, t_fdnl **begin)
@@ -98,20 +80,20 @@ int	get_next_line(int fd, char **line)
 	if (!line || BUFFER_SIZE <= 0 || fd < 0 || read(fd, buf, 0) < 0)
 		return (-1);
 	*line = f_strdup("");
-	if ((istruct = checkfd(begin, fd)))
+	istruct = checkfd(begin, fd);
+	if (istruct)
 	{
 		tmp = f_strdup(istruct->iline);
-		ret = checknewl(tmp, f_strlen(istruct->iline), line, istruct);
+		checknewl(tmp, ft_strlen(istruct->iline), line, istruct);
 		free(tmp);
-		if (ret <= 1)
-			return (ret);
 	}
 	else
 		f_lstadd_back(&begin, istruct = f_lstnew(fd));
-	while ((ret = read(fd, buf, BUFFER_SIZE)) > 0)
+	ret = read(fd, buf, BUFFER_SIZE);
+	while (ret > 0)
 	{
-		if ((ret = checknewl(buf, ret, line, istruct)) <= 1)
-			return (ret);
+		checknewl(buf, ret, line, istruct);
+		ret = read(fd, buf, BUFFER_SIZE);
 	}
 	return (ft_return(ret, &istruct, &begin));
 }

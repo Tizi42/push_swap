@@ -24,7 +24,7 @@ int	print_c(char chr, t_printf *format)
 		putchr_multi(' ', format->width - 1);
 		write(1, &chr, 1);
 	}
-	return (format->width > 1 ? format->width : 1);
+	return (ternary(format->width > 1, format->width, 1));
 }
 
 int	print_s(char *str, t_printf *format)
@@ -34,7 +34,8 @@ int	print_s(char *str, t_printf *format)
 	char	c;
 
 	s = str;
-	if ((maxstr = printf_strlen(str)) == -1)
+	maxstr = printf_strlen(str);
+	if (maxstr == -1)
 	{
 		maxstr = 6;
 		s = "(null)";
@@ -52,16 +53,15 @@ int	print_s(char *str, t_printf *format)
 		putchr_multi(c, format->width - maxstr);
 		write(1, s, maxstr);
 	}
-	return (format->width > maxstr ? format->width : maxstr);
+	return (ternary(format->width > maxstr, format->width, maxstr));
 }
 
 int	print_p(void *ptr, t_printf *format)
 {
-	char *hexa;
-	char len;
+	char	*hexa;
+	char	len;
 
-	if (!(hexa = malloc(sizeof(char) * 12)))
-		return (-1);
+	hexa = ft_malloc(sizeof(char) * 12);
 	if (ptradrr(ptr, hexa, format) == 1)
 		len = 1;
 	else
@@ -73,7 +73,7 @@ int	print_p(void *ptr, t_printf *format)
 
 int	print_percentage(t_printf *format)
 {
-	char c;
+	char	c;
 
 	c = ' ';
 	if (format->flag_minus)
@@ -88,5 +88,5 @@ int	print_percentage(t_printf *format)
 		putchr_multi(c, format->width - 1);
 		write(1, "%", 1);
 	}
-	return (format->width > 1 ? format->width : 1);
+	return (ternary(format->width > 1, format->width, 1));
 }

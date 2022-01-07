@@ -22,23 +22,22 @@
 #  define BUFFER_SIZE 50
 # endif
 
-typedef	struct		s_fdnl
+typedef struct s_fdnl
 {
 	int				ifd;
 	char			*iline;
 	struct s_fdnl	*next;
-}					t_fdnl;
+}	t_fdnl;
 
-int					get_next_line(int fd, char **line);
-char				*f_strdup(const char *s1);
+int				get_next_line(int fd, char **line);
+char			*f_strdup(const char *s1);
 t_fdnl			*checkfd(t_fdnl *begin, int fd);
 t_fdnl			*f_lstnew(int fd);
-void				f_lstadd_back(t_fdnl **alst, t_fdnl *new);
-void				del_istruct(t_fdnl **begin, t_fdnl **istruct);
-int					checknewl(char *buf, int ret, char **line, t_fdnl *istruct);
-int					f_strlen(const char *s);
-int					append(char **line, char *buf, int start, int end);
-int					ft_return(int ret, t_fdnl **istruct,
-								t_fdnl **begin);
+void			f_lstadd_back(t_fdnl **alst, t_fdnl *new);
+void			del_istruct(t_fdnl **begin, t_fdnl **istruct);
+void			checknewl(char *buf, int ret, char **line, t_fdnl *istruct);
+int				f_strlen(const char *s);
+void			append(char **line, char *buf, int start, int end);
+int				ft_return(int ret, t_fdnl **istruct, t_fdnl **begin);
 
 #endif

@@ -10,18 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-
-static int	ft_strlen(const char *s)
-{
-	int	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
+#include "libft.h"
 
 static int	test(char s1, char const *set)
 {
@@ -37,7 +26,7 @@ static int	test(char s1, char const *set)
 	return (1);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*trim;
 	int		i;
@@ -53,8 +42,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 	len -= 1;
 	while (len >= i && test(s1[len], set) == 0)
 		len--;
-	if (!(trim = malloc(sizeof(char) * (len - i + 2))))
-		return (NULL);
+	trim = ft_malloc(sizeof(char) * (len - i + 2));
 	j = 0;
 	while (len >= i + j)
 	{

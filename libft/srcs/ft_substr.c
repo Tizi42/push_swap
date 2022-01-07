@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -22,8 +21,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (ft_strlen(s) < start)
 		return (ft_strdup(""));
-	if (!(ext = malloc(len + 1)))
-		return (NULL);
+	ext = ft_malloc(len + 1);
 	i = 0;
 	while (s[start + i] && i < len)
 	{

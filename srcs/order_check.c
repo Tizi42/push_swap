@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   order_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/05 10:54:29 by tyuan             #+#    #+#             */
-/*   Updated: 2020/05/05 11:06:55 by tyuan            ###   ########.fr       */
+/*   Created: 2022/01/07 11:03:33 by tyuan             #+#    #+#             */
+/*   Updated: 2022/01/07 11:03:35 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	sorted(int *stack, int size)
 {
-	void	*a;
-	size_t	i;
+	int	i;
 
-	a = ft_malloc(count * size);
 	i = 0;
-	while (i < count * size)
+	while (i < size)
 	{
-		*(char *)(a + i) = 0;
+		if (stack[i] != i)
+			return (0);
 		i++;
 	}
-	return (a);
+	return (1);
+}
+
+int	ordered(int *stack, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		if (stack[i] - stack[i + 1] != -1
+			&& stack[i] - stack[i + 1] != size - 1)
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -12,13 +12,17 @@
 
 #include "printf.h"
 
-int		len(long int n)
+int	len(long int n)
 {
-	int len;
+	int	len;
 
 	len = 1;
-	while ((n = n / 10) != 0)
+	n = n / 10;
+	while (n != 0)
+	{
 		len++;
+		n = n / 10;
+	}
 	return (len);
 }
 
@@ -38,26 +42,29 @@ void	f_putnbr(long int nb)
 	}
 }
 
-int		len_x(long int n)
+int	len_x(long int n)
 {
-	int len;
+	int	len;
 
 	len = 1;
-	while ((n = n / 16) > 0)
+	n = n / 16;
+	while (n > 0)
+	{
 		len++;
+		n = n / 16;
+	}
 	return (len);
 }
 
 char	*tohexa(long int n, int nlen, char s)
 {
-	char *base;
-	char *hexa;
+	char	*base;
+	char	*hexa;
 
 	base = "0123456789abcdef";
 	if (s == 'X')
 		base = "0123456789ABCDEF";
-	if (!(hexa = malloc(sizeof(char) * nlen)))
-		return (NULL);
+	hexa = ft_malloc(sizeof(char) * nlen);
 	stock_x(n, nlen, hexa, base);
 	return (hexa);
 }

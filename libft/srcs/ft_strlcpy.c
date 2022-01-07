@@ -14,7 +14,7 @@
 
 static int	ft_strlen(const char *str)
 {
-	int l;
+	int	l;
 
 	l = 0;
 	while (str[l])
@@ -22,10 +22,10 @@ static int	ft_strlen(const char *str)
 	return (l);
 }
 
-size_t		ft_strlcpy(char *restrict dst,
+size_t	ft_strlcpy(char *restrict dst,
 			const char *restrict src, size_t dstsize)
 {
-	int i;
+	int	i;
 
 	if (dst == NULL || src == NULL)
 		return (0);

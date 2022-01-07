@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "libft.h"
 
 # define RESET   "\033[0m"
 # define BLACK   "\033[30m"
@@ -36,7 +37,7 @@
 # define BOLDCYAN    "\033[1m\033[36m"
 # define BOLDWHITE   "\033[1m\033[37m"
 
-typedef struct	s_printf
+typedef struct s_printf
 {
 	int	width;
 	int	precision;
@@ -45,7 +46,7 @@ typedef struct	s_printf
 }				t_printf;
 
 int				ft_printf(const char *str, ...);
-t_printf			*printf_lstnew(void);
+t_printf		*printf_lstnew(void);
 int				print_arg(char *str, int i, va_list ap, int *p);
 int				checkzero(long int n, t_printf *format);
 int				checkptr(char *hexa);

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/05 10:54:29 by tyuan             #+#    #+#             */
-/*   Updated: 2020/05/05 11:06:55 by tyuan            ###   ########.fr       */
+/*   Created: 2022/01/07 11:10:25 by tyuan             #+#    #+#             */
+/*   Updated: 2022/01/07 11:10:27 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	free_split(char **tab)
 {
-	void	*a;
-	size_t	i;
+	int	i;
 
-	a = ft_malloc(count * size);
-	i = 0;
-	while (i < count * size)
+	if (tab)
 	{
-		*(char *)(a + i) = 0;
-		i++;
+		i = 0;
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
 	}
-	return (a);
 }

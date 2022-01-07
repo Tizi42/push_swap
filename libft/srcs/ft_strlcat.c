@@ -14,7 +14,7 @@
 
 static int	ft_strlen(const char *str)
 {
-	int l;
+	int	l;
 
 	l = 0;
 	while (str[l])
@@ -22,7 +22,7 @@ static int	ft_strlen(const char *str)
 	return (l);
 }
 
-size_t		ft_strlcat(char *restrict dst, const char *restrict src,
+size_t	ft_strlcat(char *restrict dst, const char *restrict src,
 		size_t dstsize)
 {
 	int	i;

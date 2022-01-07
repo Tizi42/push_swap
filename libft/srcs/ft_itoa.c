@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int	itoa_ir(long int nb, char *res, size_t *id)
 {
@@ -26,7 +26,7 @@ static int	itoa_ir(long int nb, char *res, size_t *id)
 
 static int	itoa_size(int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n < 0)
@@ -44,14 +44,13 @@ static int	itoa_size(int n)
 	return (i);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	char			*res;
-	long int		nb;
-	size_t			i;
+	char		*res;
+	long int	nb;
+	size_t		i;
 
-	if (!(res = malloc(sizeof(char) * (itoa_size(n) + 1))))
-		return (0);
+	res = ft_malloc(sizeof(char) * (itoa_size(n) + 1));
 	nb = n;
 	i = 0;
 	if (nb < 0)

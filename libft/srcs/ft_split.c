@@ -10,29 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-static void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t	i;
-	char	*rep;
-
-	rep = b;
-	i = 0;
-	while (i < len)
-	{
-		rep[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
-}
+#include "libft.h"
 
 static int	docp(char **tab, char const *s, int *ct)
 {
-	int i;
+	int	i;
 
-	if (!(tab[ct[2]] = malloc(sizeof(char) * (ct[1] - ct[0]))))
-		return (0);
+	tab[ct[2]] = ft_malloc(sizeof(char) * (ct[1] - ct[0]));
 	i = 0;
 	while (ct[0] + 1 + i < ct[1])
 	{
@@ -46,7 +30,7 @@ static int	docp(char **tab, char const *s, int *ct)
 
 static int	sizet(char const *s, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (s == NULL)
@@ -60,15 +44,22 @@ static int	sizet(char const *s, char c)
 	return (i);
 }
 
-char		**ft_split(char const *s, char c)
+static void	init(int count[3])
 {
-	char		**tab;
-	int			count[3];
-
-	ft_memset(count, 0, sizeof(count));
-	if (s == NULL || !(tab = malloc(sizeof(char *) * (sizet(s, c) + 2))))
-		return (NULL);
 	count[0] = -1;
+	count[1] = 0;
+	count[2] = 0;
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**tab;
+	int		count[3];
+
+	init(count);
+	if (s == NULL)
+		return (NULL);
+	tab = ft_malloc(sizeof(char *) * (sizet(s, c) + 2));
 	while (s[count[1]])
 	{
 		if (s[count[1]] == c || s[count[1] + 1] == '\0')

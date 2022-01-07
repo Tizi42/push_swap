@@ -14,8 +14,8 @@
 
 void	rotate(int *n, int size, int direction)
 {
-	int tmp;
-	int i;
+	int	tmp;
+	int	i;
 
 	if (direction == 1)
 	{

@@ -12,20 +12,20 @@
 
 #include "push_swap.h"
 
-void	rb_n(int *stack, int atop, int msg, int n)
+void	rb_n(int *stack, int atop, int n)
 {
 	while (n > 0)
 	{
-		rb(stack, atop, msg);
+		rb(stack, atop, 1);
 		n--;
 	}
 }
 
-void	rrb_n(int *stack, int atop, int msg, int n)
+void	rrb_n(int *stack, int atop, int n)
 {
 	while (n > 0)
 	{
-		rrb(stack, atop, msg);
+		rrb(stack, atop, 1);
 		n--;
 	}
 }

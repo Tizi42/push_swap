@@ -19,6 +19,9 @@
 
 # include "libft.h"
 
+void	rrotate_to_next_a(int *stack, int atop, int pivot, int size);
+
+
 /* push.c */
 void	pb(int *atop, int size);
 void	pa(int *atop);
@@ -41,8 +44,8 @@ void	rrb(int *stack, int atop, int msg);
 void	rrr(int *stack, int atop, int size);
 
 /* multi_ops.c */
-void	rb_n(int *stack, int atop, int msg, int n);
-void	rrb_n(int *stack, int atop, int msg, int n);
+void	rb_n(int *stack, int atop, int n);
+void	rrb_n(int *stack, int atop, int n);
 void	rr_n(int *stack, int atop, int size, int n);
 void	ra_n(int *stack, int atop, int size, int n);
 

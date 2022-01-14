@@ -47,3 +47,21 @@ void	ra_n(int *stack, int atop, int size, int n)
 		n--;
 	}
 }
+
+void	rra_n(int *stack, int atop, int size, int n)
+{
+	while (n > 0)
+	{
+		rra(stack, atop, size, 1);
+		n--;
+	}
+}
+
+void	rrr_n(int *stack, int atop, int size, int n)
+{
+	while (n > 0)
+	{
+		rrr(stack, atop, size);
+		n--;
+	}
+}

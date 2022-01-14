@@ -77,7 +77,7 @@ void	exchange_sort(int (*lst)[2], int size)
 ** i = the final index
 ** val_pos[i][1] = the original index
 */
-void	modify_stack(int *stack, int size)
+int	*modify_stack(int *stack, int size)
 {
 	int	(*val_pos)[2];
 	int	i;
@@ -98,6 +98,7 @@ void	modify_stack(int *stack, int size)
 		i++;
 	}
 	free(val_pos);
+	return (stack);
 }
 
 int	append_stack(int **stack, char **tab, int old_size)

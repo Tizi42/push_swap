@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	sorted(int *stack, int size)
+int	continuous_sorted(int *stack, int size)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	sorted(int *stack, int size)
 	return (1);
 }
 
-int	ordered(int *stack, int size)
+int	continuous_ordered(int *stack, int size)
 {
 	int	i;
 

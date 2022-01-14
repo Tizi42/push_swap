@@ -16,19 +16,28 @@ void	rra(int *stack, int atop, int size, int msg)
 {
 	rotate(&stack[atop], size - atop, 1);
 	if (msg)
-		printf("rra\n");
+		ft_printf("rra\n");
 }
 
 void	rrb(int *stack, int atop, int msg)
 {
 	rotate(stack, atop, -1);
 	if (msg)
-		printf("rrb\n");
+		ft_printf("rrb\n");
 }
 
 void	rrr(int *stack, int atop, int size)
 {
 	rra(stack, atop, size, 0);
 	rrb(stack, atop, 0);
-	printf("rrr\n");
+	ft_printf("rrr\n");
+}
+
+void	rrr_n(int *stack, int atop, int size, int n)
+{
+	while (n > 0)
+	{
+		rrr(stack, atop, size);
+		n--;
+	}
 }

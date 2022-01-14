@@ -12,7 +12,7 @@
 
 NAME	= push_swap
 
-SRCS	= main.c  parse.c syntax.c push_swap.c calculate.c methods.c order_check.c operations/multi_ops.c operations/push.c operations/rotate.c operations/rrotate.c operations/swap.c
+SRCS	= main.c  parse.c syntax.c push_swap_medium.c calculate.c methods.c order_check.c operations/multi_ops.c operations/push.c operations/rotate.c operations/rrotate.c operations/swap.c
 
 DIRSRC	= srcs
 

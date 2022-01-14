@@ -15,21 +15,15 @@
 void	pb(int *atop, int size)
 {
 	if (*atop >= size - 1)
-	{
-		printf("Error: no element in stack a for push");
 		return ;
-	}
 	*atop += 1;
-	printf("pb\n");
+	ft_printf("pb\n");
 }
 
 void	pa(int *atop)
 {
 	if (*atop <= 0)
-	{
-		printf("Error: no element in stack b for push");
 		return ;
-	}
 	*atop -= 1;
-	printf("pa\n");
+	ft_printf("pa\n");
 }

@@ -56,12 +56,3 @@ void	rra_n(int *stack, int atop, int size, int n)
 		n--;
 	}
 }
-
-void	rrr_n(int *stack, int atop, int size, int n)
-{
-	while (n > 0)
-	{
-		rrr(stack, atop, size);
-		n--;
-	}
-}

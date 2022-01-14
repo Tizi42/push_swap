@@ -19,48 +19,25 @@ void	clean_exit(int *stack)
 	exit(-1);
 }
 
-int	*intdup(int *array, int size)
+void	push_swap_small(int *stack, int size)
 {
-	int	*cp;
-	int	n;
+	int	atop;
 
-	cp = ft_malloc(sizeof(int) * size);
-	n = 0;
-	while (n < size)
+	atop = 0;
+	while (!continuous_sorted(stack, size))
 	{
-		cp[n] = array[n];
-		n++;
+		if (continuous_ordered(&stack[atop], size - atop))
+			top_sml_a(stack, atop, size);
+		else if (stack[atop] > stack[atop + 1])
+			sa(stack, atop, 1);
+		else
+		{
+			top_sml_a(stack, atop, size);
+			pb(&atop, size);
+		}
 	}
-	return (cp);
-}
-
-int	status(int *stack, int size)
-{
-	int	*cp;
-	int	i;
-	int	n;
-
-	i = 0;
-	n = 0;
-	while (i < size - 1)
-	{
-		if (stack[i] > stack[i + 1])
-			n++;
-		if (n >= 2)
-			return (0);
-		i++;
-	}
-	if (n == 1)
-	{
-		i = 0;
-		cp = intdup(stack, size);
-		if (continuous_ordered(modify_stack(cp, size), size))
-			i = ORDERED;
-		free(cp);
-		return (i);
-	}
-	else
-		return (SORTED);
+	while (atop > 0)
+		pa(&atop);
 }
 
 void	push_swap(int *stack, int size)

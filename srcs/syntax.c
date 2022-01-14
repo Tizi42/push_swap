@@ -64,7 +64,7 @@ int	valid_elements(char **tab)
 			}
 			j++;
 		}
-		if (!within_int_limit(tab[i], j))
+		if (!within_int_limit(tab[i], j) || (j == 1 && tab[i][0] == '-'))
 			return (0);
 		i++;
 	}

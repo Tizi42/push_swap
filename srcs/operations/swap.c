@@ -25,24 +25,21 @@ void	sa(int *stack, int atop, int msg)
 {
 	swap(&stack[atop], &stack[atop + 1]);
 	if (msg)
-		printf("sa\n");
+		ft_printf("sa\n");
 }
 
 void	sb(int *stack, int atop, int msg)
 {
 	if (atop < 2)
-	{
-		printf("Error: not enough element in b to swap\n");
 		return ;
-	}
 	swap(&stack[atop - 1], &stack[atop - 2]);
 	if (msg)
-		printf("sb\n");
+		ft_printf("sb\n");
 }
 
 void	ss(int *stack, int atop)
 {
 	sa(stack, atop, 0);
 	sb(stack, atop, 0);
-	printf("ss\n");
+	ft_printf("ss\n");
 }

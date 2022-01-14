@@ -44,19 +44,19 @@ void	ra(int *stack, int atop, int size, int msg)
 {
 	rotate(&stack[atop], size - atop, -1);
 	if (msg)
-		printf("ra\n");
+		ft_printf("ra\n");
 }
 
 void	rb(int *stack, int atop, int msg)
 {
 	rotate(stack, atop, 1);
 	if (msg)
-		printf("rb\n");
+		ft_printf("rb\n");
 }
 
 void	rr(int *stack, int atop, int size)
 {
 	ra(stack, atop, size, 0);
 	rb(stack, atop, 0);
-	printf("rr\n");
+	ft_printf("rr\n");
 }

@@ -82,7 +82,7 @@ int	*modify_stack(int *stack, int size)
 	int	(*val_pos)[2];
 	int	i;
 
-	val_pos = malloc(sizeof(int) * 2 * size);
+	val_pos = ft_malloc(sizeof(int) * 2 * size);
 	i = 0;
 	while (i < size)
 	{
@@ -116,8 +116,7 @@ int	append_stack(int **stack, char **tab, int old_size)
 		(*stack)[i] = tmp[i];
 		i++;
 	}
-	if (tmp)
-		free(tmp);
+	free(tmp);
 	while (i < new_size && *tab)
 	{
 		(*stack)[i] = ft_atoi(*tab);

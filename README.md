@@ -25,6 +25,6 @@ ss
 
 The goal is to sort the list with as less instructions as possible.
 
-#My choice of data structure
+## My choice of data structure
 
-#The Algorithm
+## The Algorithm

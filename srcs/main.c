@@ -6,7 +6,7 @@
 /*   By: tyuan <tyuan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 10:34:39 by tyuan             #+#    #+#             */
-/*   Updated: 2022/01/07 16:00:19 by tyuan            ###   ########.fr       */
+/*   Updated: 2022/01/15 11:00:01 by tyuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ int	main(int ac, char **av)
 	int	size;
 
 	if (ac == 1)
-		return (0);
+		return (1);
 	stack = NULL;
 	size = parse(ac, av, &stack);
 	modify_stack(stack, size);
 	push_swap(stack, size);
 	free(stack);
+	return (0);
 }
